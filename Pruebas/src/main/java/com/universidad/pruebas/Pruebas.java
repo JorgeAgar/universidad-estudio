@@ -23,6 +23,10 @@ public class Pruebas {
             }
             scanner.close();
             System.out.println(num);
+            
+            String smenos1 = "-1";
+            int menos1 = Integer.parseInt(smenos1);
+            System.out.println(menos1);
         }
     }
 
