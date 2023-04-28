@@ -47,7 +47,9 @@ public class TriquiTraqui {
             }
             
             System.out.println(cuadro[0] + "|" + cuadro[1] + "|" + cuadro[2]);
+            System.out.println("-----------");
             System.out.println(cuadro[3] + "|" + cuadro[4] + "|" + cuadro[5]);
+            System.out.println("-----------");
             System.out.println(cuadro[6] + "|" + cuadro[7] + "|" + cuadro[8]);
             
             turnoX = !turnoX;
