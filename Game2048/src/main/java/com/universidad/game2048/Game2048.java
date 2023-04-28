@@ -16,35 +16,26 @@ public class Game2048 {
         Scanner sc = new Scanner(System.in);
         Random rng = new Random();
         
-        char[][] cnumbers = new char[4][4];
+        String[][] snumbers = new String[4][4];
         
-        byte move;
+        byte move = 1;
         
         boolean continueGame = true;
         
         boolean isEmpty;
         
+        boolean updatedBoard = true;
+        
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
                 //"initialize" cnumbers to ' ' (blank)
-                cnumbers[i][j] = ' ';
+                snumbers[i][j] = " ";
             }
         }
         
+        //snumbers[rng.nextInt(3)][rng.nextInt(3)] = Integer.toString(generateNumber()); //generate 1st number
+        
         while(continueGame){
-            
-            do{
-                //choose random box to generate new number
-                int row = rng.nextInt(3);
-                int column = rng.nextInt(3);
-                
-                if(cnumbers[row][column] == ' '){
-                    isEmpty = true;
-                    cnumbers[row][column] = (char)(generateNumber() + '0');
-                } else{
-                    isEmpty = false;
-                }
-            }while(!isEmpty);
             
             /*
             1. if the next positions box is empty -> shift number (repeat until no more possible shifts)
@@ -54,11 +45,110 @@ public class Game2048 {
             3. repeat only step 1
             4. generate new number
             */
-            boolean willMerge;
+            //boolean willMerge;
+            int shifts;
+            do{
+                shifts = 0;
+                
+                switch(move){
+                    case 1: //up
+                        for(int i = 1; i < 4; i++){
+                            for(int j = 0; j < 4; j++){
+                                if(snumbers[i-1][j].isBlank() && !(snumbers[i][j].isBlank())){ //shift
+                                    snumbers[i-1][j] = snumbers[i][j];
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                } else if(snumbers[i-1][j].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())){ //merge
+                                    snumbers[i-1][j] = (Integer.toString(2*(Integer.parseInt(snumbers[i][j]))) + "m");
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                }  
+                            }
+                        }
+                        break;
+                    
+                    case 2: //down
+                        for(int i = 2; i >= 0; i--){
+                            for(int j = 0; j < 4; j++){
+                                if(snumbers[i+1][j].isBlank() && !(snumbers[i][j].isBlank())){ //shift
+                                    snumbers[i+1][j] = snumbers[i][j];
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                } else if(snumbers[i+1][j].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())){ //merge
+                                    snumbers[i+1][j] = (Integer.toString(2*(Integer.parseInt(snumbers[i][j]))) + "m");
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                }  
+                            }
+                        }
+                        break;
+                        
+                    case 3: //right
+                        for(int i = 0; i < 4; i++){
+                            for(int j = 2; j >= 0; j--){
+                                if(snumbers[i][j+1].isBlank() && !(snumbers[i][j].isBlank())){ //shift
+                                    snumbers[i][j+1] = snumbers[i][j];
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                } else if(snumbers[i][j+1].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())){ //merge
+                                    snumbers[i][j+1] = (Integer.toString(2*(Integer.parseInt(snumbers[i][j]))) + "m");
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                }  
+                            }
+                        }
+                        break;
+                        
+                        case 4: //left
+                        for(int i = 0; i < 4; i++){
+                            for(int j = 1; j < 4; j++){
+                                if(snumbers[i][j-1].isBlank() && !(snumbers[i][j].isBlank())){ //shift
+                                    snumbers[i][j-1] = snumbers[i][j];
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                } else if(snumbers[i][j-1].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())){ //merge
+                                    snumbers[i][j-1] = (Integer.toString(2*(Integer.parseInt(snumbers[i][j]))) + "m");
+                                    snumbers[i][j] = " ";
+                                    shifts++;
+                                }  
+                            }
+                        }
+                        break;
+                }
+                if(shifts > 0){
+                    updatedBoard = true;
+                }
+            }while(shifts > 0);
             
-            for(int i = 0; i < 4; i++){ 
+            if(updatedBoard){ //choose wheter to generate a new number or not
+                do{
+                    //choose random box to generate new number
+                    //System.out.println("iterate");
+                    int row = rng.nextInt(3);
+                    int column = rng.nextInt(3);
+
+                    if(snumbers[row][column].isBlank()){
+                        isEmpty = true;
+                        snumbers[row][column] = Integer.toString(generateNumber());
+                    } else{
+                        isEmpty = false;
+                    }
+                }while(!isEmpty);
+            }
+            
+            
+            for(int i = 0; i < 4; i++){ //remove "m" from numbers
+                for(int j = 0; j < 4; j++){
+                    if(snumbers[i][j].contains("m")){
+                        snumbers[i][j] = snumbers[i][j].replace("m", " ");
+                        snumbers[i][j] = snumbers[i][j].strip();
+                    }
+                }
+            }
+            
+            for(int i = 0; i < 4; i++){
                 //print the board
-                System.out.println(" " + cnumbers[i][0] + " | " + cnumbers[i][1] + " | " + cnumbers[i][2] + " | " + cnumbers[i][3]);
+                System.out.println(" " + snumbers[i][0] + " | " + snumbers[i][1] + " | " + snumbers[i][2] + " | " + snumbers[i][3]);
             }
             
             do{
@@ -66,6 +156,7 @@ public class Game2048 {
                 System.out.println("1.up   2.down   3.right   4.left");
                 move = sc.nextByte();
             }while(move < 1 || move > 4);
+            updatedBoard = false;
         }
     }
     static int generateNumber(){
