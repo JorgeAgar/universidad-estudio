@@ -22,6 +22,10 @@ public class ParqueCafeParcial {
         int visitantes = sc.nextInt();
         sc.nextLine();
         
+        int[] numsIdentificacion = new int[visitantes];
+        int[] alturaVisitantes = new int[visitantes];
+        int[] edadVisitantes = new int[visitantes];
+        
         for(int i = 0; i < atracciones; i++){ //datos para las atracciones
             System.out.println("==========================================");
             System.out.println("Atracción " + (i+1));
@@ -40,29 +44,31 @@ public class ParqueCafeParcial {
             
             for(int j = 0; j < visitantes; j++){ //visitantes
                 //pedir datos visitante
-                System.out.println("============================================");
-                System.out.println("Visitante " + (j+1));
-                System.out.println("============================================");
-                System.out.println("Ingrese su número de identificación");
-                int numIdentificacion = sc.nextInt();
-                System.out.println("Ingrese su altura en cm");
-                int alturaVisitante = sc.nextInt();
-                System.out.println("Ingrese su edad");
-                int edadVisitante = sc.nextInt();
+                if(i==0){
+                    System.out.println("============================================");
+                    System.out.println("Visitante " + (j+1));
+                    System.out.println("============================================");
+                    System.out.println("Ingrese su número de identificación");
+                    numsIdentificacion[j] = sc.nextInt();
+                    System.out.println("Ingrese su altura en cm");
+                    alturaVisitantes[j] = sc.nextInt();
+                    System.out.println("Ingrese su edad");
+                    edadVisitantes[j] = sc.nextInt();
+                }
 
                 //verificar restricciones
                 boolean permitido = true;
-                if(alturaVisitante < alturaMinAtraccion){
+                if(alturaVisitantes[j] < alturaMinAtraccion){
                     permitido = false;
                 }
-                if((acrofobiaAtraccion == 3) && (edadVisitante < 18 || edadVisitante > 40)){
+                if((acrofobiaAtraccion == 3) && (edadVisitantes[j] < 18 || edadVisitantes[j] > 40)){
                     permitido = false;
                 }
                 
                 //imprimir visitante
                 if(permitido){
                     System.out.println("---------------------------------------------------------------");
-                    System.out.println("# identificación " + numIdentificacion);
+                    System.out.println("# identificación " + numsIdentificacion[j]);
                     System.out.println("Bienvenido al Parque del Cafe, atracción " + nombreAtraccion);
                     System.out.println("ticket #" + (j+1));
                     System.out.println("---------------------------------------------------------------");
