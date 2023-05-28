@@ -19,6 +19,9 @@ public class Escaner {
         var x = sc.next();
         var y = sc.next();
         System.out.println(x + "   -   " + y);
+        while(true){
+            
+        }
     }
     
 }

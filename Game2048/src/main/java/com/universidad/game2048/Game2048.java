@@ -35,8 +35,10 @@ public class Game2048 {
         
         //snumbers[rng.nextInt(3)][rng.nextInt(3)] = Integer.toString(generateNumber()); //generate 1st number
         
+        int iteration = 0;
+        
         while(continueGame){
-            
+            System.out.println("iteration = " + (++iteration));
             /*
             1. if the next positions box is empty -> shift number (repeat until no more possible shifts)
             2. if the number is equal to the number in the next positions box -> 
@@ -47,9 +49,10 @@ public class Game2048 {
             */
             //boolean willMerge;
             int shifts;
-            do{
+            do{  //move & shift
                 shifts = 0;
                 
+                System.out.println("move = " + move);
                 switch(move){
                     case 1: //up
                         for(int i = 1; i < 4; i++){
@@ -114,6 +117,10 @@ public class Game2048 {
                             }
                         }
                         break;
+                        
+                        default: //just in case
+                            System.out.println("Not a valid move!");
+                            System.out.println("move = " + move);
                 }
                 if(shifts > 0){
                     updatedBoard = true;
@@ -154,10 +161,12 @@ public class Game2048 {
             do{
                 //capture the move for next iteration
                 System.out.println("1.up   2.down   3.right   4.left");
-                move = sc.nextByte();
+                //move = sc.nextByte();
+                move = Byte.parseByte(sc.nextLine());
             }while(move < 1 || move > 4);
             updatedBoard = false;
         }
+        System.out.println("Exit continueGame");
     }
     static int generateNumber(){
         //choose whether to generate a 2 or a 4
