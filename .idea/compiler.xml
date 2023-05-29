@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Hackerrank" />
+        <module name="Game2048" />
+        <module name="Banco" />
+        <module name="TriquiTraqui" />
+        <module name="FundamentosDeProgramacion" />
+        <module name="Dado" />
+        <module name="Pruebas" />
+        <module name="GUI" />
+        <module name="JuegoMD" />
+        <module name="CursoUdemy" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
