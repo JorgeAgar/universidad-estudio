@@ -153,10 +153,7 @@ public class Game2048 {
                 }
             }
             
-            for(int i = 0; i < 4; i++){
-                //print the board
-                System.out.println(" " + snumbers[i][0] + " | " + snumbers[i][1] + " | " + snumbers[i][2] + " | " + snumbers[i][3]);
-            }
+            printBoard(snumbers);
             
             do{
                 //capture the move for next iteration
@@ -168,6 +165,7 @@ public class Game2048 {
         }
         System.out.println("Exit continueGame");
     }
+    
     static int generateNumber(){
         //choose whether to generate a 2 or a 4
         byte probability = (byte)Math.floor(Math.random()*10);
@@ -176,5 +174,12 @@ public class Game2048 {
         } else{
             return 2;
         }
+    }
+    
+    static void printBoard(String[][] snumbers){
+        for(int i = 0; i < 4; i++){
+                //print the board
+                System.out.println(" " + snumbers[i][0] + " | " + snumbers[i][1] + " | " + snumbers[i][2] + " | " + snumbers[i][3]);
+            }
     }
 }

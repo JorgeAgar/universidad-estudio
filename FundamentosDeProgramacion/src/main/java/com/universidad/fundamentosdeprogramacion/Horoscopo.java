@@ -116,7 +116,7 @@ public class Horoscopo {
                 break;
         }
     }
-    public static boolean verificarBisiesto(int year){
+    static boolean verificarBisiesto(int year){
         if(year % 4 == 0){
             if((year % 100 == 0) && !(year % 400 == 0)){
                 return false;
