@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Banco/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Banco/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CursoUdemy/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CursoUdemy/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Dado/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Dado/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FundamentosDeProgramacion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/FundamentosDeProgramacion/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GUI/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GUI/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Game2048/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Game2048/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Hackerrank/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Hackerrank/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JuegoMD/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JuegoMD/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Pruebas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Pruebas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TriquiTraqui/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TriquiTraqui/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
