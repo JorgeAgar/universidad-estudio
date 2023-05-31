@@ -18,6 +18,8 @@ public class Game2048 {
         
         String[][] snumbers = new String[4][4];
         
+        boolean[] wasMovePossible = new boolean[4];
+        
         byte move = 1;
         
         boolean continueGame = true;
@@ -26,6 +28,8 @@ public class Game2048 {
         
         boolean updatedBoard = true;
         
+        boolean victory = false;
+        
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
                 //"initialize" cnumbers to ' ' (blank)
@@ -33,11 +37,15 @@ public class Game2048 {
             }
         }
         
-        //snumbers[rng.nextInt(3)][rng.nextInt(3)] = Integer.toString(generateNumber()); //generate 1st number
+        for(int i = 0; i < 4; i++){ //initialize wasMovePossible to true
+            wasMovePossible[i] = true;
+        }
         
         int iteration = 0;
         
         while(continueGame){
+            
+            
             System.out.println("iteration = " + (++iteration));
             /*
             1. if the next positions box is empty -> shift number (repeat until no more possible shifts)
@@ -48,7 +56,7 @@ public class Game2048 {
             4. generate new number
             */
             //boolean willMerge;
-            int shifts;
+            int shifts, highest=0;
             do{  //move & shift
                 shifts = 0;
                 
@@ -61,7 +69,7 @@ public class Game2048 {
                                     snumbers[i - 1][j] = snumbers[i][j];
                                     snumbers[i][j] = " ";
                                     shifts++;
-                                } else if (snumbers[i - 1][j].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())) { //merge
+                                } else if (snumbers[i - 1][j].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank()) && (snumbers[i][j].matches("\\d{1,5}"))) { //merge
                                     snumbers[i - 1][j] = (Integer.toString(2 * (Integer.parseInt(snumbers[i][j]))) + "m");
                                     snumbers[i][j] = " ";
                                     shifts++;
@@ -76,7 +84,7 @@ public class Game2048 {
                                     snumbers[i + 1][j] = snumbers[i][j];
                                     snumbers[i][j] = " ";
                                     shifts++;
-                                } else if (snumbers[i + 1][j].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())) { //merge
+                                } else if (snumbers[i + 1][j].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank()) && (snumbers[i][j].matches("\\d{1,5}"))) { //merge
                                     snumbers[i + 1][j] = (Integer.toString(2 * (Integer.parseInt(snumbers[i][j]))) + "m");
                                     snumbers[i][j] = " ";
                                     shifts++;
@@ -91,7 +99,7 @@ public class Game2048 {
                                     snumbers[i][j + 1] = snumbers[i][j];
                                     snumbers[i][j] = " ";
                                     shifts++;
-                                } else if (snumbers[i][j + 1].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())) { //merge
+                                } else if (snumbers[i][j + 1].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank()) && (snumbers[i][j].matches("\\d{1,5}"))) { //merge
                                     snumbers[i][j + 1] = (Integer.toString(2 * (Integer.parseInt(snumbers[i][j]))) + "m");
                                     snumbers[i][j] = " ";
                                     shifts++;
@@ -106,7 +114,7 @@ public class Game2048 {
                                     snumbers[i][j - 1] = snumbers[i][j];
                                     snumbers[i][j] = " ";
                                     shifts++;
-                                } else if (snumbers[i][j - 1].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank())) { //merge
+                                } else if (snumbers[i][j - 1].equals(snumbers[i][j]) && !(snumbers[i][j].isBlank()) && (snumbers[i][j].matches("\\d{1,5}"))) { //merge
                                     snumbers[i][j - 1] = (Integer.toString(2 * (Integer.parseInt(snumbers[i][j]))) + "m");
                                     snumbers[i][j] = " ";
                                     shifts++;
@@ -123,13 +131,13 @@ public class Game2048 {
                     updatedBoard = true;
                 }
             }while(shifts != 0);
-            //random number have to be from 0 to 4 because the origin is count but the bound is not counted, example origin 1, bound 5 == 1-4 did you get it ?
+            //random number has to be from 0 to 4 bc origin is counted but the bound is not counted, example origin 1, bound 5 == 1-4
             if(updatedBoard){ //choose whether to generate a new number or not
-                int bug = 0;
+                wasMovePossible[move-1] = true; //move was possible
+                //generate new number
                 do{
                     //choose random box to generate new number
                     //System.out.println("iterate");
-//
                     int row = rng.nextInt(0,4);//random number 0-32
 
                     int column = rng.nextInt(0,4);//random number 0-3
@@ -142,19 +150,35 @@ public class Game2048 {
                     }
 
                 }while(!isEmpty);
+            } else{ //checking impossible moves to determine loss
+                wasMovePossible[move-1] = false;
             }
             
             
-            for(int i = 0; i < 4; i++){ //remove "m" from numbers
-                for(int j = 0; j < 4; j++){
+            for(int i = 0; i < 4; i++){ //remove "m" from numbers and check for highest number
+                for(int j = 0; j < 4; j++){ //remove "m" from numbers
                     if(snumbers[i][j].contains("m")){
                         snumbers[i][j] = snumbers[i][j].replace("m", " ");
                         snumbers[i][j] = snumbers[i][j].strip();
                     }
                 }
+                for(int j = 0; j < 4; j++){ //check for highest number
+                    if(snumbers[i][j].strip().matches("\\d{1,5}")){
+                        highest = Integer.parseInt(snumbers[i][j].strip()) > highest ? Integer.parseInt(snumbers[i][j].strip()) : highest;
+                    }
+                }
             }
             
-            printBoard(snumbers);
+            if(!wasMovePossible[0] && !wasMovePossible[1] && !wasMovePossible[2] && !wasMovePossible[3]){ //no move was possible, loss
+                continueGame = false; //loss, not continuing game
+            }
+            
+            if(highest > 2047){ //2048, won the game
+                victory = true;
+                continueGame = false; //victory, not continuing game
+            }
+            
+            printBoard(snumbers); //print the board
             
             do{
                 //capture the move for next iteration
@@ -163,7 +187,19 @@ public class Game2048 {
             }while(move < 1 || move > 4);
             updatedBoard = false;
         }
-        System.out.println("Exit continueGame");
+        
+        if(victory){
+            System.out.println("");
+            System.out.println("=============================================");
+            System.out.println("You won!");
+            System.out.println("=============================================");
+        } else{
+            System.out.println("");
+            System.out.println("=============================================");
+            System.out.println("You lost");
+            System.out.println("=============================================");
+        }
+        
     }
     
     static int generateNumber(){
