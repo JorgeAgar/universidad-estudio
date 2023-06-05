@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.universidad.game2048;
 
 /**
@@ -11,7 +7,7 @@ package com.universidad.game2048;
 import java.util.Scanner;
 import java.util.Random;
 import java.awt.event.KeyEvent;
-public class Game2048 {
+public class Juego2048_2 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -184,7 +180,8 @@ public class Game2048 {
             do{
                 //capture the move for next iteration
                 System.out.println("1.up   2.down   3.right   4.left");
-                move = sc.nextByte();
+                //move = sc.nextByte();
+                move = captureMove();
             }while(move < 1 || move > 4);
             updatedBoard = false;
         }
@@ -218,5 +215,19 @@ public class Game2048 {
                 //print the board
                 System.out.println(" " + snumbers[i][0] + " | " + snumbers[i][1] + " | " + snumbers[i][2] + " | " + snumbers[i][3]);
             }
+    }
+    
+    static byte captureMove(KeyEvent e){
+        if(e.getKeyCode() == KeyEvent.VK_UP){
+            return 1;
+        } else if(e.getKeyCode() == KeyEvent.VK_DOWN){
+            return 2;
+        } else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            return 3;
+        } else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+            return 4;
+        } else{
+            return 0;
+        }
     }
 }
