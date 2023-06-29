@@ -12,11 +12,7 @@ import java.util.Scanner;
 
 public class Pruebas {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         
-        String a = "888";
-        
-        System.out.println(a.matches("\\d{1,2}"));
-        }
+    }
     }
 
